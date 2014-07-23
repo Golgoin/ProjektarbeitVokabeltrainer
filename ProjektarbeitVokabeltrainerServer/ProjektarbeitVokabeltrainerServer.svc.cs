@@ -16,7 +16,6 @@ namespace ProjektarbeitVokabeltrainerServer
     public class ProjektarbeitVokabeltrainerServer : IProjektarbeitVokabeltrainerServer
     {
         string constring = "Server=(localdb)\\Projects; Integrated security=true; Database = MyDatabase";
-        //string constring = "Server=(local)\\SQLEXPRESS; Integrated security=true; Database = MyDatabase";
         SqlConnection con;
         SqlCommand cmd;
         SqlDataReader reader;
