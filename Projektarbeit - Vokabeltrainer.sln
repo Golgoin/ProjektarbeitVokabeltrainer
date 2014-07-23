@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjektarbeitVokabeltrainer", "Projektarbeit - Vokabeltrainer\ProjektarbeitVokabeltrainer.csproj", "{3B7C9893-E97F-485C-A3AC-D95609B13B74}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AA7D4D8D-1B0C-40D8-9FEB-AB1D02F5CB3C} = {AA7D4D8D-1B0C-40D8-9FEB-AB1D02F5CB3C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjektarbeitVokabeltrainerServer", "ProjektarbeitVokabeltrainerServer\ProjektarbeitVokabeltrainerServer.csproj", "{AA7D4D8D-1B0C-40D8-9FEB-AB1D02F5CB3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjektarbeitVokabeltrainerDatenbank", "ProjektarbeitVokabeltrainerDatenbank\ProjektarbeitVokabeltrainerDatenbank.csproj", "{4CF791CA-5EC0-472D-91D5-0AA9F94E9CCC}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://lukasrastbichler.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Projektarbeit\u0020-\u0020Vokabeltrainer\\ProjektarbeitVokabeltrainer.csproj
+		SccProjectName1 = Projektarbeit\u0020-\u0020Vokabeltrainer
+		SccLocalPath1 = Projektarbeit\u0020-\u0020Vokabeltrainer
+		SccProjectUniqueName2 = ProjektarbeitVokabeltrainerServer\\ProjektarbeitVokabeltrainerServer.csproj
+		SccProjectName2 = ProjektarbeitVokabeltrainerServer
+		SccLocalPath2 = ProjektarbeitVokabeltrainerServer
+		SccProjectUniqueName3 = ProjektarbeitVokabeltrainerDatenbank\\ProjektarbeitVokabeltrainerDatenbank.csproj
+		SccProjectName3 = ProjektarbeitVokabeltrainerDatenbank
+		SccLocalPath3 = ProjektarbeitVokabeltrainerDatenbank
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B7C9893-E97F-485C-A3AC-D95609B13B74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B7C9893-E97F-485C-A3AC-D95609B13B74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B7C9893-E97F-485C-A3AC-D95609B13B74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B7C9893-E97F-485C-A3AC-D95609B13B74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA7D4D8D-1B0C-40D8-9FEB-AB1D02F5CB3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA7D4D8D-1B0C-40D8-9FEB-AB1D02F5CB3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA7D4D8D-1B0C-40D8-9FEB-AB1D02F5CB3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA7D4D8D-1B0C-40D8-9FEB-AB1D02F5CB3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CF791CA-5EC0-472D-91D5-0AA9F94E9CCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CF791CA-5EC0-472D-91D5-0AA9F94E9CCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CF791CA-5EC0-472D-91D5-0AA9F94E9CCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CF791CA-5EC0-472D-91D5-0AA9F94E9CCC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

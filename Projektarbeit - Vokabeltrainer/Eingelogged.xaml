@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="ProjektarbeitVokabeltrainer.Eingelogged"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="332" d:DesignWidth="504">
+    <Grid Name="mainGrid">
+        <Button Click="StatistikClick" Content="Statistik" HorizontalAlignment="Left" Margin="64,82,0,0" VerticalAlignment="Top" Width="120" Height="76"/>
+        <DockPanel LastChildFill="True" Name="btnStartPanel" HorizontalAlignment="Left" Margin="189,82,0,0" VerticalAlignment="Top" Width="120" Height="76"/>
+        <ComboBox Name="cmbRichtung" HorizontalAlignment="Left" Margin="314,82,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBoxItem Content="Richtung zufällig" IsSelected="True"/>
+            <ComboBoxItem Content="Deutsch/Englisch"/>
+            <ComboBoxItem Content="Englisch/Deutsch"/>
+        </ComboBox>
+        <ComboBox Name="cmbFach" HorizontalAlignment="Left" Margin="314,109,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbFachSelChanged">
+            <ComboBoxItem MinHeight="1" MinWidth="1" Content="Fach 1" IsSelected="True"/>
+            <ComboBoxItem MinHeight="2" MinWidth="2" Content="Fach 2"/>
+            <ComboBoxItem MinHeight="3" MinWidth="5" Content="Fach 3"/>
+            <ComboBoxItem MinHeight="4" MinWidth="10" Content="Fach 4"/>
+        </ComboBox>
+        <ComboBox Name="cmbLänge" HorizontalAlignment="Left" Margin="314,136,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBoxItem Content="Alle Vokabel" IsSelected="True"/>
+            <ComboBoxItem Content="10 Vokabel"/>
+            <ComboBoxItem Content="20 Vokabel"/>
+            <ComboBoxItem Content="30 Vokabel"/>
+        </ComboBox>
+        <Button Click="HinzufügenClick" Content="Vokabel hinzufügen" HorizontalAlignment="Left" Margin="64,163,0,0" VerticalAlignment="Top" Width="120" Height="76"/>
+        <Button Click="BearbeitenClick" Content="Vokabel bearbeiten" HorizontalAlignment="Left" Margin="189,163,0,0" VerticalAlignment="Top" Width="120" Height="76"/>
+        <Button Click="AbmeldenClick" Content="Abmelden" HorizontalAlignment="Left" Margin="314,163,0,0" VerticalAlignment="Top" Width="120" Height="76"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="76" Margin="189,82,0,0" VerticalAlignment="Top" Width="245"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Factory="System.ServiceModel.Activation.WebServiceHostFactory" Debug="true" Service="ProjektarbeitVokabeltrainerServer.ProjektarbeitVokabeltrainerServer" CodeBehind="ProjektarbeitVokabeltrainerServer.svc.cs" %>

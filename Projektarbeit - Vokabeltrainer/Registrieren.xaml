@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="ProjektarbeitVokabeltrainer.Registrieren"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="332" d:DesignWidth="504">
+    <Grid Name="mainGrid">
+        <Label Content="Benutzer wählen:" HorizontalAlignment="Left" Margin="111,117,0,0" VerticalAlignment="Top" Width="119"/>
+        <TextBox Name="txtName" HorizontalAlignment="Left" Height="26" Margin="230,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165" TabIndex="1"/>
+        <Button IsDefault="True" Click="RegistrierenClick" Content="Registrieren" HorizontalAlignment="Left" Margin="111,210,0,0" VerticalAlignment="Top" Width="284"/>
+        <Button Click="AbbrechenClick" Content="Zurück" HorizontalAlignment="Left" Margin="111,237,0,0" VerticalAlignment="Top" Width="284"/>
+        <Label Content="Passwort:" HorizontalAlignment="Left" Margin="111,148,0,0" VerticalAlignment="Top" Width="119"/>
+        <Label Content="Passwort bestätigen:" HorizontalAlignment="Left" Margin="111,179,0,0" VerticalAlignment="Top" Width="119"/>
+        <PasswordBox HorizontalAlignment="Left" Name="pbPasswort" Height="26" Margin="230,148,0,0" VerticalAlignment="Top" Width="165"/>
+        <PasswordBox HorizontalAlignment="Left" Name="pbPasswortBestätigen" Height="26" Margin="230,179,0,0" VerticalAlignment="Top" Width="165"/>
+    </Grid>
+</UserControl>

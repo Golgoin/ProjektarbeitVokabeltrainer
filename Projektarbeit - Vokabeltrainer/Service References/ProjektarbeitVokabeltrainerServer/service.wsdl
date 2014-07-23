@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ProjektarbeitVokabeltrainerServer" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/ProjektarbeitVokabeltrainerServer" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_Registrieren_InputMessage">
+    <wsdl:part name="parameters" element="tns:Registrieren" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_Registrieren_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrierenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_Anmelden_InputMessage">
+    <wsdl:part name="parameters" element="tns:Anmelden" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_Anmelden_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AnmeldenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_GetBenutzer_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBenutzer" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_GetBenutzer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBenutzerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_GetAllBenutzer_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllBenutzer" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_GetAllBenutzer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllBenutzerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_CreateVokabel_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateVokabel" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_CreateVokabel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateVokabelResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_UpdateVokabel_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateVokabel" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_UpdateVokabel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateVokabelResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_UpdateVokabelList_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateVokabelList" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_UpdateVokabelList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateVokabelListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_DeleteVokabel_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteVokabel" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_DeleteVokabel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteVokabelResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_GetVokabel_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetVokabel" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_GetVokabel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetVokabelResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_GetVokabelForBenutzer_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetVokabelForBenutzer" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_GetVokabelForBenutzer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetVokabelForBenutzerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_GetVokabelForBenutzerForFach_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetVokabelForBenutzerForFach" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_GetVokabelForBenutzerForFach_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetVokabelForBenutzerForFachResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_GetFächer_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFächer" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_GetFächer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFächerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_UpdateFach_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateFach" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_UpdateFach_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateFachResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_GetStatistik_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStatistik" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_GetStatistik_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStatistikResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_UpdateStatistik_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateStatistik" />
+  </wsdl:message>
+  <wsdl:message name="IProjektarbeitVokabeltrainerServer_UpdateStatistik_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateStatistikResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IProjektarbeitVokabeltrainerServer">
+    <wsdl:operation name="Registrieren">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/Registrieren" message="tns:IProjektarbeitVokabeltrainerServer_Registrieren_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/RegistrierenResponse" message="tns:IProjektarbeitVokabeltrainerServer_Registrieren_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Anmelden">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/Anmelden" message="tns:IProjektarbeitVokabeltrainerServer_Anmelden_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/AnmeldenResponse" message="tns:IProjektarbeitVokabeltrainerServer_Anmelden_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBenutzer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/GetBenutzer" message="tns:IProjektarbeitVokabeltrainerServer_GetBenutzer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/GetBenutzerResponse" message="tns:IProjektarbeitVokabeltrainerServer_GetBenutzer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllBenutzer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/GetAllBenutzer" message="tns:IProjektarbeitVokabeltrainerServer_GetAllBenutzer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/GetAllBenutzerResponse" message="tns:IProjektarbeitVokabeltrainerServer_GetAllBenutzer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateVokabel">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/CreateVokabel" message="tns:IProjektarbeitVokabeltrainerServer_CreateVokabel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/CreateVokabelResponse" message="tns:IProjektarbeitVokabeltrainerServer_CreateVokabel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateVokabel">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/UpdateVokabel" message="tns:IProjektarbeitVokabeltrainerServer_UpdateVokabel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/UpdateVokabelResponse" message="tns:IProjektarbeitVokabeltrainerServer_UpdateVokabel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateVokabelList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/UpdateVokabelList" message="tns:IProjektarbeitVokabeltrainerServer_UpdateVokabelList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/UpdateVokabelListResponse" message="tns:IProjektarbeitVokabeltrainerServer_UpdateVokabelList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteVokabel">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/DeleteVokabel" message="tns:IProjektarbeitVokabeltrainerServer_DeleteVokabel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/DeleteVokabelResponse" message="tns:IProjektarbeitVokabeltrainerServer_DeleteVokabel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVokabel">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/GetVokabel" message="tns:IProjektarbeitVokabeltrainerServer_GetVokabel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/GetVokabelResponse" message="tns:IProjektarbeitVokabeltrainerServer_GetVokabel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVokabelForBenutzer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/GetVokabelForBenutzer" message="tns:IProjektarbeitVokabeltrainerServer_GetVokabelForBenutzer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/GetVokabelForBenutzerResponse" message="tns:IProjektarbeitVokabeltrainerServer_GetVokabelForBenutzer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVokabelForBenutzerForFach">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/GetVokabelForBenutzerForFach" message="tns:IProjektarbeitVokabeltrainerServer_GetVokabelForBenutzerForFach_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/GetVokabelForBenutzerForFachResponse" message="tns:IProjektarbeitVokabeltrainerServer_GetVokabelForBenutzerForFach_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFächer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/GetFächer" message="tns:IProjektarbeitVokabeltrainerServer_GetFächer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/GetFächerResponse" message="tns:IProjektarbeitVokabeltrainerServer_GetFächer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateFach">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/UpdateFach" message="tns:IProjektarbeitVokabeltrainerServer_UpdateFach_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/UpdateFachResponse" message="tns:IProjektarbeitVokabeltrainerServer_UpdateFach_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStatistik">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/GetStatistik" message="tns:IProjektarbeitVokabeltrainerServer_GetStatistik_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/GetStatistikResponse" message="tns:IProjektarbeitVokabeltrainerServer_GetStatistik_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateStatistik">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/UpdateStatistik" message="tns:IProjektarbeitVokabeltrainerServer_UpdateStatistik_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProjektarbeitVokabeltrainerServer/UpdateStatistikResponse" message="tns:IProjektarbeitVokabeltrainerServer_UpdateStatistik_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:service name="ProjektarbeitVokabeltrainerServer" />
+</wsdl:definitions>

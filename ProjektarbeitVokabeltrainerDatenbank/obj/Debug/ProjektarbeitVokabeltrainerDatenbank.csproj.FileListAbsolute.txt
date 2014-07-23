@@ -1,0 +1,6 @@
+C:\Users\Golgoin\Desktop\Projektarbeit\Projektarbeit - Vokabeltrainer\ProjektarbeitVokabeltrainerDatenbank\bin\Debug\ProjektarbeitVokabeltrainerDatenbank.exe.config
+C:\Users\Golgoin\Desktop\Projektarbeit\Projektarbeit - Vokabeltrainer\ProjektarbeitVokabeltrainerDatenbank\bin\Debug\ProjektarbeitVokabeltrainerDatenbank.exe
+C:\Users\Golgoin\Desktop\Projektarbeit\Projektarbeit - Vokabeltrainer\ProjektarbeitVokabeltrainerDatenbank\bin\Debug\ProjektarbeitVokabeltrainerDatenbank.pdb
+C:\Users\Golgoin\Desktop\Projektarbeit\Projektarbeit - Vokabeltrainer\ProjektarbeitVokabeltrainerDatenbank\obj\Debug\ProjektarbeitVokabeltrainerDatenbank.csprojResolveAssemblyReference.cache
+C:\Users\Golgoin\Desktop\Projektarbeit\Projektarbeit - Vokabeltrainer\ProjektarbeitVokabeltrainerDatenbank\obj\Debug\ProjektarbeitVokabeltrainerDatenbank.exe
+C:\Users\Golgoin\Desktop\Projektarbeit\Projektarbeit - Vokabeltrainer\ProjektarbeitVokabeltrainerDatenbank\obj\Debug\ProjektarbeitVokabeltrainerDatenbank.pdb

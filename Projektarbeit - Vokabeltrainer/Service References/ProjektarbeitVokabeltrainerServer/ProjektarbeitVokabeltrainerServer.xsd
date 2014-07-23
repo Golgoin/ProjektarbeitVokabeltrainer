@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ProjektarbeitVokabeltrainerServer" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ProjektarbeitVokabeltrainerServer" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="Benutzer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Fach1" nillable="true" type="tns:Fach" />
+      <xs:element minOccurs="0" name="Fach2" nillable="true" type="tns:Fach" />
+      <xs:element minOccurs="0" name="Fach3" nillable="true" type="tns:Fach" />
+      <xs:element minOccurs="0" name="Fach4" nillable="true" type="tns:Fach" />
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="Passwort" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Statistik" nillable="true" type="tns:Teststatistik" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Benutzer" nillable="true" type="tns:Benutzer" />
+  <xs:complexType name="Fach">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="Zeit" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Fach" nillable="true" type="tns:Fach" />
+  <xs:complexType name="Teststatistik">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TestBeendet" type="xs:int" />
+      <xs:element minOccurs="0" name="TestGestartet" type="xs:int" />
+      <xs:element minOccurs="0" name="VokabelGeübt" type="xs:int" />
+      <xs:element minOccurs="0" name="VokabelRichtig" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Teststatistik" nillable="true" type="tns:Teststatistik" />
+  <xs:complexType name="ArrayOfBenutzer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Benutzer" nillable="true" type="tns:Benutzer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBenutzer" nillable="true" type="tns:ArrayOfBenutzer" />
+  <xs:complexType name="Vokabel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BenutzerId" type="xs:int" />
+      <xs:element minOccurs="0" name="Deutsch" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Deutsch2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Englisch" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Englisch2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Fach" type="xs:int" />
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Vokabel" nillable="true" type="tns:Vokabel" />
+  <xs:complexType name="ArrayOfVokabel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Vokabel" nillable="true" type="tns:Vokabel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfVokabel" nillable="true" type="tns:ArrayOfVokabel" />
+  <xs:complexType name="ArrayOfFach">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Fach" nillable="true" type="tns:Fach" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFach" nillable="true" type="tns:ArrayOfFach" />
+</xs:schema>

@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="ProjektarbeitVokabeltrainer.VokabelBearbeiten"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="332" d:DesignWidth="494">
+    <Grid Name="mainGrid">
+        <DataGrid Name="dataGrid" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" CanUserDeleteRows="False" Background="{x:Null}" CanUserResizeColumns="False" CanUserReorderColumns="False" Margin="10,10,10,53" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Deutsch" Binding="{Binding Path=Deutsch}"/>
+                <DataGridTextColumn Header="Deutsch alternativ" Binding="{Binding Path=Deutsch2}"/>
+                <DataGridTextColumn Header="Englisch" Binding="{Binding Path=Englisch}"/>
+                <DataGridTextColumn Header="Englisch alternativ" Binding="{Binding Path=Englisch2}"/>
+                <DataGridTextColumn Header="Fach" Binding="{Binding Path=Fach}"/>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Bearbeiten" Click="BearbeitenClick"/>
+                    <MenuItem Header="Löschen" Click="LöschenClick"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+        <Button IsDefault="True" Click="ZurückClick" Content="Zurück" HorizontalAlignment="Left" Margin="10,284,0,0" VerticalAlignment="Top" Width="474" TabIndex="5"/>
+    </Grid>
+</UserControl>

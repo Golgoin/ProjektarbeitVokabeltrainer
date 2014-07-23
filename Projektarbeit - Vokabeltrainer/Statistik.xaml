@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="ProjektarbeitVokabeltrainer.Statistik"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="332" d:DesignWidth="494">
+    <Grid Name="mainGrid">
+        <ProgressBar Name="progressFach1" Value="0" HorizontalAlignment="Left" Height="74" Margin="49,10,0,0" VerticalAlignment="Top" Width="67" Orientation="Vertical" Foreground="LightGreen"/>
+        <ProgressBar Name="progressFach2" Value="0" HorizontalAlignment="Left" Height="74" Margin="156,10,0,0" VerticalAlignment="Top" Width="67" Orientation="Vertical" Foreground="LightGreen"/>
+        <ProgressBar Name="progressFach3" Value="0" HorizontalAlignment="Left" Height="74" Margin="271,10,0,0" VerticalAlignment="Top" Width="67" Orientation="Vertical" Foreground="LightGreen"/>
+        <ProgressBar Name="progressFach4" Value="0" HorizontalAlignment="Left" Height="74" Margin="378,10,0,0" VerticalAlignment="Top" Width="67" Orientation="Vertical" Foreground="LightGreen"/>
+        <Label Content="Fach 1" HorizontalAlignment="Left" Margin="49,89,0,0" VerticalAlignment="Top" Width="67" HorizontalContentAlignment="Center" FontWeight="Bold" Height="26"/>
+        <Label Content="Fach 2" HorizontalAlignment="Left" Margin="156,89,0,0" VerticalAlignment="Top" Width="67" HorizontalContentAlignment="Center" FontWeight="Bold" Height="26"/>
+        <Label Content="Fach 3" HorizontalAlignment="Left" Margin="271,89,0,0" VerticalAlignment="Top" Width="67" HorizontalContentAlignment="Center" FontWeight="Bold" Height="26"/>
+        <Label Content="Fach 4" HorizontalAlignment="Left" Margin="378,89,0,0" VerticalAlignment="Top" Width="67" HorizontalContentAlignment="Center" FontWeight="Bold" Height="26"/>
+        <Label Name="fach1" Content="{Binding ElementName=progressFach1, Path=Value}" HorizontalAlignment="Left" Margin="49,115,0,0" VerticalAlignment="Top" Width="67" HorizontalContentAlignment="Center" Height="26"/>
+        <Label Name="fach2" Content="{Binding ElementName=progressFach2, Path=Value}" HorizontalAlignment="Left" Margin="156,115,0,0" VerticalAlignment="Top" Width="67" HorizontalContentAlignment="Center" Height="26"/>
+        <Label Name="fach3" Content="{Binding ElementName=progressFach3, Path=Value}" HorizontalAlignment="Left" Margin="271,115,0,0" VerticalAlignment="Top" Width="67" HorizontalContentAlignment="Center" Height="26"/>
+        <Label Name="fach4" Content="{Binding ElementName=progressFach4, Path=Value}" HorizontalAlignment="Left" Margin="378,115,0,0" VerticalAlignment="Top" Width="67" HorizontalContentAlignment="Center" Height="26"/>
+        <DockPanel Name="fach1Panel" HorizontalAlignment="Left" Height="76" Margin="30,141,0,0" VerticalAlignment="Top" Width="105">
+            <Label Name="fach1Zeit" DockPanel.Dock="Top" Content="Test möglich!" HorizontalContentAlignment="Center" Height="25" FontSize="10"/>
+            <Label Name="fach11Zeit" DockPanel.Dock="Top" HorizontalContentAlignment="Center" Height="25" FontSize="10"/>
+            <Label Name="fach111Zeit" DockPanel.Dock="Top" HorizontalContentAlignment="Center" Height="25" FontSize="10"/>
+        </DockPanel>
+        <DockPanel Name="fach2Panel" HorizontalAlignment="Left" Height="76" Margin="137,141,0,0" VerticalAlignment="Top" Width="105">
+            <Label Name="fach2Zeit" DockPanel.Dock="Top" Content="Test möglich!" HorizontalContentAlignment="Center" Height="25" FontSize="10"/>
+            <Label Name="fach22Zeit" DockPanel.Dock="Top" HorizontalContentAlignment="Center" Height="25" FontSize="10"/>
+            <Label Name="fach222Zeit" DockPanel.Dock="Top" HorizontalContentAlignment="Center" Height="25" FontSize="10"/>
+        </DockPanel>
+        <DockPanel Name="fach3Panel" HorizontalAlignment="Left" Height="76" Margin="252,141,0,0" VerticalAlignment="Top" Width="105">
+            <Label Name="fach3Zeit" DockPanel.Dock="Top" Content="Test möglich!" HorizontalContentAlignment="Center" Height="25" FontSize="10"/>
+            <Label Name="fach33Zeit" DockPanel.Dock="Top" HorizontalContentAlignment="Center" Height="25" FontSize="10"/>
+            <Label Name="fach333Zeit" DockPanel.Dock="Top" HorizontalContentAlignment="Center" Height="25" FontSize="10"/>
+        </DockPanel>
+        <DockPanel Name="fach4Panel" HorizontalAlignment="Left" Height="76" Margin="359,141,0,0" VerticalAlignment="Top" Width="105">
+            <Label Name="fach4Zeit" DockPanel.Dock="Top" Content="Test möglich!" HorizontalContentAlignment="Center" Height="25" FontSize="10"/>
+            <Label Name="fach44Zeit" DockPanel.Dock="Top" HorizontalContentAlignment="Center" Height="25" FontSize="10"/>
+            <Label Name="fach444Zeit" DockPanel.Dock="Top" HorizontalContentAlignment="Center" Height="25" FontSize="10"/>
+        </DockPanel>
+        <Label HorizontalAlignment="Left" Margin="30,227,0,0" VerticalAlignment="Top" Width="122">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Tests Gestartet: "/>
+                <TextBlock Text="{Binding Path=Statistik.TestGestartet}"/>
+            </StackPanel>
+        </Label>
+        <Label HorizontalAlignment="Left" Margin="30,253,0,0" VerticalAlignment="Top" Width="122">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Davon beendet: "/>
+                <TextBlock Text="{Binding Path=Statistik.TestBeendet}"/>
+        </StackPanel>
+        </Label>
+        <Label HorizontalAlignment="Left" Margin="252,227,0,0" VerticalAlignment="Top" Width="122">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Vokabel geübt: "/>
+                <TextBlock Text="{Binding Path=Statistik.VokabelGeübt}"/>
+            </StackPanel>
+        </Label>
+        <Label HorizontalAlignment="Left" Margin="252,253,0,0" VerticalAlignment="Top" Width="122">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Davon richtig: "/>
+                <TextBlock Text="{Binding Path=Statistik.VokabelRichtig}"/>
+            </StackPanel>
+        </Label>
+        <Button IsDefault="True" Click="ZurückClick" Content="Zurück" HorizontalAlignment="Left" Margin="10,284,0,0" VerticalAlignment="Top" Width="474" TabIndex="5"/>
+    </Grid>
+</UserControl>

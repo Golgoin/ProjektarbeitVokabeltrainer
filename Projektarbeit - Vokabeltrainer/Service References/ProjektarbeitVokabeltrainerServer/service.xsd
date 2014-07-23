@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/ProjektarbeitVokabeltrainerServer" />
+  <xs:element name="Registrieren">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ProjektarbeitVokabeltrainerServer" minOccurs="0" name="benutzer" nillable="true" type="q1:Benutzer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegistrierenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RegistrierenResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Anmelden">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="benutzerid" nillable="true" type="xs:string" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ProjektarbeitVokabeltrainerServer" minOccurs="0" name="benutzer" nillable="true" type="q2:Benutzer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AnmeldenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ProjektarbeitVokabeltrainerServer" minOccurs="0" name="AnmeldenResult" nillable="true" type="q3:Benutzer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBenutzer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="benutzerid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBenutzerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ProjektarbeitVokabeltrainerServer" minOccurs="0" name="GetBenutzerResult" nillable="true" type="q4:Benutzer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllBenutzer">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllBenutzerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/ProjektarbeitVokabeltrainerServer" minOccurs="0" name="GetAllBenutzerResult" nillable="true" type="q5:ArrayOfBenutzer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateVokabel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/ProjektarbeitVokabeltrainerServer" minOccurs="0" name="vokabel" nillable="true" type="q6:Vokabel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateVokabelResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CreateVokabelResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateVokabel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="vokabelid" nillable="true" type="xs:string" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/ProjektarbeitVokabeltrainerServer" minOccurs="0" name="vokabel" nillable="true" type="q7:Vokabel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateVokabelResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateVokabelResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateVokabelList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/ProjektarbeitVokabeltrainerServer" minOccurs="0" name="vokabel" nillable="true" type="q8:ArrayOfVokabel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateVokabelListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateVokabelListResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteVokabel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="vokabelid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteVokabelResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteVokabelResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetVokabel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="vokabelid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetVokabelResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/ProjektarbeitVokabeltrainerServer" minOccurs="0" name="GetVokabelResult" nillable="true" type="q9:Vokabel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetVokabelForBenutzer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="benutzerid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetVokabelForBenutzerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/ProjektarbeitVokabeltrainerServer" minOccurs="0" name="GetVokabelForBenutzerResult" nillable="true" type="q10:ArrayOfVokabel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetVokabelForBenutzerForFach">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="benutzerid" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="vokabelFach" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetVokabelForBenutzerForFachResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/ProjektarbeitVokabeltrainerServer" minOccurs="0" name="GetVokabelForBenutzerForFachResult" nillable="true" type="q11:ArrayOfVokabel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFächer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="benutzerid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFächerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/ProjektarbeitVokabeltrainerServer" minOccurs="0" name="GetFächerResult" nillable="true" type="q12:ArrayOfFach" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateFach">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="benutzerid" nillable="true" type="xs:string" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/ProjektarbeitVokabeltrainerServer" minOccurs="0" name="fach" nillable="true" type="q13:Fach" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateFachResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateFachResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStatistik">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="benutzerid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStatistikResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/ProjektarbeitVokabeltrainerServer" minOccurs="0" name="GetStatistikResult" nillable="true" type="q14:Teststatistik" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateStatistik">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="benutzerid" nillable="true" type="xs:string" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/ProjektarbeitVokabeltrainerServer" minOccurs="0" name="statistik" nillable="true" type="q15:Teststatistik" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateStatistikResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateStatistikResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
