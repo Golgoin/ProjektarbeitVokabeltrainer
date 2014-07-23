@@ -30,9 +30,17 @@ namespace ProjektarbeitVokabeltrainer
         {
             InitializeComponent();
             this.benutzer = GetBenutzer(benutzer);
-            this.DataContext = this.benutzer;
-            FillProgressBars(GetVokabel());
-            CheckTimes();
+            if (this.benutzer != null)
+            {
+                this.DataContext = this.benutzer;
+                FillProgressBars(GetVokabel());
+                CheckTimes();
+            }
+            else
+            {
+                mainGrid.Children.Clear();
+                mainGrid.Children.Add(new Start());
+            }
         }
 
         private void ZurückClick(object sender, RoutedEventArgs e)
@@ -41,6 +49,7 @@ namespace ProjektarbeitVokabeltrainer
             mainGrid.Children.Add(new Eingelogged(benutzer));
         }
 
+        //Daten des eingeloggten Benutzers werden erneut geladen
         private Benutzer GetBenutzer(Benutzer benutzer)
         {
             HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(uri + "benutzer/" + benutzer.ID + "/");
@@ -49,12 +58,18 @@ namespace ProjektarbeitVokabeltrainer
             try
             {
                 webresponse = (HttpWebResponse)webrequest.GetResponse();
+                HttpStatusCode rc = webresponse.StatusCode;
                 DataContractSerializer serl = new DataContractSerializer(typeof(Benutzer));
                 return (Benutzer)serl.ReadObject(webresponse.GetResponseStream());
             }
-            catch (Exception e)
+            catch (WebException we)
             {
-                throw e;
+                if (we.Response != null)
+                {
+                    webresponse = (HttpWebResponse)we.Response;
+                    MessageBox.Show(webresponse.StatusDescription + "!", "Fehler");
+                }
+                return null;
             }
             finally
             {
@@ -63,6 +78,7 @@ namespace ProjektarbeitVokabeltrainer
             }
         }
 
+        //Liste aller Vokabel des Benutzers werden geladen
         private List<Vokabel> GetVokabel()
         {
             List<Vokabel> vokabel = new List<Vokabel>();
@@ -72,12 +88,22 @@ namespace ProjektarbeitVokabeltrainer
             try
             {
                 webresponse = (HttpWebResponse)webrequest.GetResponse();
+                HttpStatusCode rc = webresponse.StatusCode;
                 DataContractSerializer serl = new DataContractSerializer(typeof(List<Vokabel>));
                 return (List<Vokabel>)serl.ReadObject(webresponse.GetResponseStream());
             }
-            catch (Exception e)
+            catch (WebException we)
             {
-                throw e;
+                if (we.Response != null)
+                {
+                    webresponse = (HttpWebResponse)we.Response;
+                    MessageBox.Show(webresponse.StatusDescription + "!", "Fehler");
+                }
+                else
+                {
+                    MessageBox.Show("Server nicht erreichbar!", "Fehler");
+                }
+                return new List<Vokabel>();
             }
             finally
             {
@@ -86,6 +112,7 @@ namespace ProjektarbeitVokabeltrainer
             }
         }
 
+        //ProgressBars werden befüllt
         private void FillProgressBars(List<Vokabel> vokabel)
         {
             if (vokabel.Count != 0)
@@ -102,15 +129,16 @@ namespace ProjektarbeitVokabeltrainer
             }
         }
 
+        //Verfügbarkeit der Tests werden überprüft
         private void CheckTimes()
         {
             DateTime now = DateTime.Now;
 
-            if (fach1.Content.ToString() == "0")
+            if (fach1.Content.ToString() == "0") //Fach leer?
                 FillLabelNoVok(fach1Zeit, fach11Zeit);
-            else if (now.CompareTo(DateTime.Parse(benutzer.Fach1.Zeit).AddDays(1)) < 0)
+            else if (now.CompareTo(DateTime.Parse(benutzer.Fach1.Zeit).AddDays(1)) < 0) //Intervall erreicht?
                 FillLabelNotAvailable(fach1Zeit, fach11Zeit, fach111Zeit, benutzer.Fach1, 1);
-            else
+            else //Test Starten Button wird erstellt
                 CreateButton(fach1Panel, 1);
 
             if (fach2.Content.ToString() == "0")

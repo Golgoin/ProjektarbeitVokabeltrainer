@@ -8,6 +8,7 @@ namespace ProjektarbeitVokabeltrainer
 {
     public class Security
     {
+        //Erzeugt den Hashwert des Passwortes/GUID
         public static string HashSHA1(string value)
         {
             var sha1 = System.Security.Cryptography.SHA1.Create();

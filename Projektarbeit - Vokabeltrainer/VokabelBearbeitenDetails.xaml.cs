@@ -24,16 +24,23 @@ namespace ProjektarbeitVokabeltrainer
     /// </summary>
     public partial class VokabelBearbeitenDetails : UserControl
     {
-        Benutzer benutzer;
-        Vokabel vokabel;
-        string uri = "http://localhost:52243/ProjektarbeitVokabeltrainerServer.svc/";
+        private Benutzer benutzer;
+        private Vokabel vokabel;
+        private string uri = "http://localhost:52243/ProjektarbeitVokabeltrainerServer.svc/";
 
+        //Gewähltes Vokabel wird in angezeigt
         public VokabelBearbeitenDetails(Benutzer benutzer, Vokabel vokabel)
         {
             InitializeComponent();
             this.benutzer = benutzer;
             this.vokabel = vokabel;
             this.DataContext = vokabel;
+            this.Loaded += VokabelBearbeitenDetails_Loaded;
+        }
+
+        void VokabelBearbeitenDetails_Loaded(object sender, RoutedEventArgs e)
+        {
+            txtDeutsch.Focus();
         }
 
         private void ZurückClick(object sender, RoutedEventArgs e)
@@ -42,6 +49,7 @@ namespace ProjektarbeitVokabeltrainer
             mainGrid.Children.Add(new VokabelBearbeiten(benutzer));
         }
 
+        //Vokabel wird bearbeitet
         private void BearbeitenClick(object sender, RoutedEventArgs e)
         {
             if (txtDeutsch.Text != "" && txtEnglisch.Text != "")
@@ -61,13 +69,22 @@ namespace ProjektarbeitVokabeltrainer
                     using (Stream requestStream = webrequest.GetRequestStream())
                         serl.WriteObject(requestStream, vokabel);
                     webresponse = (HttpWebResponse)webrequest.GetResponse();
+                    HttpStatusCode rc = webresponse.StatusCode;
                     MessageBox.Show("Vokabel bearbeitet", "Erfolg");
                     mainGrid.Children.Clear();
                     mainGrid.Children.Add(new VokabelBearbeiten(benutzer));
                 }
-                catch (Exception)
+                catch (WebException we)
                 {
-                    MessageBox.Show("Server nicht erreichbar!", "Fehler");
+                    if (we.Response != null)
+                    {
+                        webresponse = (HttpWebResponse)we.Response;
+                        MessageBox.Show(webresponse.StatusDescription + "!", "Fehler");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Server nicht erreichbar!", "Fehler");
+                    }
                 }
                 finally
                 {

@@ -11,8 +11,8 @@ namespace ProjektarbeitVokabeltrainerDatenbank
     {
         static void Main(string[] args)
         {
-            SqlConnection con = new SqlConnection("Server=(localdb)\\Projects; Integrated security=true; Database = MyDatabase");
-            //SqlConnection con = new SqlConnection("Server=(local)\\SQLEXPRESS; Integrated security=true; Database = MyDatabase");
+            //SqlConnection con = new SqlConnection("Server=(localdb)\\Projects; Integrated security=true; Database = MyDatabase");
+            SqlConnection con = new SqlConnection("Server=(local)\\SQLEXPRESS; Integrated security=true; Database = MyDatabase");
             SqlCommand createDB = new SqlCommand("Create database MyDatabase on primary " +
                                 "(Name = MyDatabase_Data, " +
                                 "Filename = 'C:\\temp\\Datenbank\\MyDatabase.mdf')" +

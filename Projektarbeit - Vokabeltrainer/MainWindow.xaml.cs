@@ -23,14 +23,7 @@ namespace ProjektarbeitVokabeltrainer
         public MainWindow()
         {
             InitializeComponent();
-            try
-            {
-                mainGrid.Children.Add(new Start());
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
+            mainGrid.Children.Add(new Start());
         }
     }
 }

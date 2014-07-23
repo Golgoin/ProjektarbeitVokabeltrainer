@@ -49,7 +49,7 @@ namespace ProjektarbeitVokabeltrainerServer
                 }
             }
             Guid guid = System.Guid.NewGuid();
-            string hpw = Security.HashSHA1(benutzer.Passwort + guid.ToString());
+            string hpw = Security.HashSHA1(benutzer.Passwort + guid.ToString()); //Hashwert aus Passworthash und GUID wird erstellt
             using (con = new SqlConnection(constring))
             {
                 try
@@ -272,7 +272,7 @@ namespace ProjektarbeitVokabeltrainerServer
             return true;
         }
 
-        //Löscht ein bestsimmtes Vokabel
+        //Löscht ein bestimmtes Vokabel
         public bool DeleteVokabel(string vokabelid)
         {
             using (con = new SqlConnection(constring))
@@ -489,6 +489,8 @@ namespace ProjektarbeitVokabeltrainerServer
         //    }
         //}
 
+
+        //Bearbeitet die Statistik eines bestimmten Benutzers
         public bool UpdateStatistik(string benutzerid, Teststatistik statistik)
         {
             using (con = new SqlConnection(constring))

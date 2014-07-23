@@ -12,7 +12,7 @@
         <Button Click="AbbrechenClick" Content="Zurück" HorizontalAlignment="Left" Margin="111,237,0,0" VerticalAlignment="Top" Width="284"/>
         <Label Content="Passwort:" HorizontalAlignment="Left" Margin="111,148,0,0" VerticalAlignment="Top" Width="119"/>
         <Label Content="Passwort bestätigen:" HorizontalAlignment="Left" Margin="111,179,0,0" VerticalAlignment="Top" Width="119"/>
-        <PasswordBox HorizontalAlignment="Left" Name="pbPasswort" Height="26" Margin="230,148,0,0" VerticalAlignment="Top" Width="165"/>
-        <PasswordBox HorizontalAlignment="Left" Name="pbPasswortBestätigen" Height="26" Margin="230,179,0,0" VerticalAlignment="Top" Width="165"/>
+        <PasswordBox TabIndex="2" HorizontalAlignment="Left" Name="pbPasswort" Height="26" Margin="230,148,0,0" VerticalAlignment="Top" Width="165"/>
+        <PasswordBox TabIndex="3"  HorizontalAlignment="Left" Name="pbPasswortBestätigen" Height="26" Margin="230,179,0,0" VerticalAlignment="Top" Width="165"/>
     </Grid>
 </UserControl>

@@ -24,13 +24,19 @@ namespace ProjektarbeitVokabeltrainer
     /// </summary>
     public partial class VokabelHinzufügen : UserControl
     {
-        Benutzer benutzer;
-        string uri = "http://localhost:52243/ProjektarbeitVokabeltrainerServer.svc/";
+        private Benutzer benutzer;
+        private string uri = "http://localhost:52243/ProjektarbeitVokabeltrainerServer.svc/";
 
         public VokabelHinzufügen(Benutzer benutzer)
         {
             InitializeComponent();
             this.benutzer = benutzer;
+            this.Loaded += VokabelHinzufügen_Loaded;
+        }
+
+        private void VokabelHinzufügen_Loaded(object sender, RoutedEventArgs e)
+        {
+            txtDeutsch.Focus();
         }
 
         private void ZurückClick(object sender, RoutedEventArgs e)
@@ -39,9 +45,10 @@ namespace ProjektarbeitVokabeltrainer
             mainGrid.Children.Add(new Eingelogged(benutzer));
         }
 
+        //Neues Vokabel wird am Server gespeichert
         private void HinzufügenClick(object sender, RoutedEventArgs e)
         {
-            if (txtDeutsch.Text != "" && txtEnglisch.Text != "")
+            if (txtDeutsch.Text != "" && txtEnglisch.Text != "") //Notwendige Felder ausgefüllt?
             {
                 Vokabel vokabel = new Vokabel();
                 vokabel.BenutzerId = benutzer.ID;
@@ -60,15 +67,25 @@ namespace ProjektarbeitVokabeltrainer
                     using (Stream requestStream = webrequest.GetRequestStream())
                         serl.WriteObject(requestStream, vokabel);
                     webresponse = (HttpWebResponse)webrequest.GetResponse();
+                    HttpStatusCode rc = webresponse.StatusCode;
                     MessageBox.Show("Vokabel hinzugefügt", "Erfolg");
                     txtDeutsch.Text = "";
                     txtDeutsch2.Text = "";
                     txtEnglisch.Text = "";
                     txtEnglisch2.Text = "";
+                    txtDeutsch.Focus();
                 }
-                catch (Exception ex)
+                catch (WebException we)
                 {
-                    MessageBox.Show(ex.Message, "Fehler");
+                    if (we.Response != null)
+                    {
+                        webresponse = (HttpWebResponse)we.Response;
+                        MessageBox.Show(webresponse.StatusDescription + "!", "Fehler");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Server nicht erreichbar!", "Fehler");
+                    }
                 }
                 finally
                 {

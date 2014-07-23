@@ -23,25 +23,46 @@ namespace ProjektarbeitVokabeltrainer
     /// </summary>
     public partial class VokabelBearbeiten : UserControl
     {
-        Benutzer benutzer;
-        string uri = "http://localhost:52243/ProjektarbeitVokabeltrainerServer.svc/";
+        private Benutzer benutzer;
+        private string uri = "http://localhost:52243/ProjektarbeitVokabeltrainerServer.svc/";
 
         public VokabelBearbeiten(Benutzer benutzer)
         {
             InitializeComponent();
             this.benutzer = benutzer;
+            List<Vokabel> vokabel = GetVokabel();
+            if (vokabel != null)
+            {
+                dataGrid.ItemsSource = vokabel;
+            }
+            else
+            {
+                mainGrid.Children.Clear();
+                mainGrid.Children.Add(new Start());
+            }
+        }
+
+        //Vokabel des Benutzers werden geladen
+        private List<Vokabel> GetVokabel()
+        {
             HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(uri + "benutzer/" + benutzer.ID + "/vokabel/");
             webrequest.Method = "GET";
             HttpWebResponse webresponse = null;
             try
             {
                 webresponse = (HttpWebResponse)webrequest.GetResponse();
+                HttpStatusCode rc = webresponse.StatusCode;
                 DataContractSerializer serl = new DataContractSerializer(typeof(List<Vokabel>));
-                dataGrid.ItemsSource = (List<Vokabel>)serl.ReadObject(webresponse.GetResponseStream());
+                return (List<Vokabel>)serl.ReadObject(webresponse.GetResponseStream());
             }
-            catch (Exception e)
+            catch (WebException we)
             {
-                throw e;
+                if (we.Response != null)
+                {
+                    webresponse = (HttpWebResponse)we.Response;
+                    MessageBox.Show(webresponse.StatusDescription + "!", "Fehler");
+                }
+                return null;
             }
             finally
             {
@@ -56,6 +77,7 @@ namespace ProjektarbeitVokabeltrainer
             mainGrid.Children.Add(new Eingelogged(benutzer));
         }
 
+        //Wechsel zum Bearbeitungsscreen
         private void BearbeitenClick(object sender, RoutedEventArgs e)
         {
             if (dataGrid.SelectedItem is Vokabel)
@@ -65,6 +87,7 @@ namespace ProjektarbeitVokabeltrainer
             }
         }
 
+        //Vokabel wird gelöscht
         private void LöschenClick(object sender, RoutedEventArgs e)
         {
             if (dataGrid.SelectedItem is Vokabel)
@@ -75,13 +98,23 @@ namespace ProjektarbeitVokabeltrainer
                 try
                 {
                     webresponse = (HttpWebResponse)webrequest.GetResponse();
+                    HttpStatusCode rc = webresponse.StatusCode;
                     MessageBox.Show("Vokabel gelöscht!", "Erfolg");
                     mainGrid.Children.Clear();
                     mainGrid.Children.Add(new VokabelBearbeiten(benutzer));
                 }
-                catch (Exception)
+                catch (WebException we)
                 {
-                    MessageBox.Show("Server nicht erreichbar!", "Fehler");
+                    if (we.Response != null)
+                    {
+                        webresponse = (HttpWebResponse)we.Response;
+                        MessageBox.Show(webresponse.StatusDescription + "!", "Fehler");
+                    }
+                    else
+                    {
+                        mainGrid.Children.Clear();
+                        mainGrid.Children.Add(new Start());
+                    }
                 }
                 finally
                 {

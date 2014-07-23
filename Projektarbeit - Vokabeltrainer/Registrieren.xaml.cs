@@ -26,21 +26,28 @@ namespace ProjektarbeitVokabeltrainer
     /// </summary>
     public partial class Registrieren : UserControl
     {
-        string uri = "http://localhost:52243/ProjektarbeitVokabeltrainerServer.svc/";
+        private string uri = "http://localhost:52243/ProjektarbeitVokabeltrainerServer.svc/";
 
         public Registrieren()
         {
             InitializeComponent();
+            this.Loaded += Registrieren_Loaded;
         }
 
+        void Registrieren_Loaded(object sender, RoutedEventArgs e)
+        {
+            txtName.Focus();
+        }
+
+        //Registrierung wird durchgeführt
         private void RegistrierenClick(object sender, RoutedEventArgs e)
         {
 
-            if (txtName.Text != "")
+            if (txtName.Text != "") //Benutzername eingegeben?
             {
-                if (pbPasswort.Password != "")
+                if (pbPasswort.Password != "") //Passwort eingegeben?
                 {
-                    if (IsEqualTo(pbPasswort.SecurePassword, pbPasswortBestätigen.SecurePassword))
+                    if (IsEqualTo(pbPasswort.SecurePassword, pbPasswortBestätigen.SecurePassword)) //Passwörter stimmen überein?
                     {
                         HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(uri + "benutzer/");
                         webrequest.Method = "POST";
@@ -62,8 +69,15 @@ namespace ProjektarbeitVokabeltrainer
                         }
                         catch (WebException we)
                         {
-                            webresponse = (HttpWebResponse)we.Response;
-                            MessageBox.Show(webresponse.StatusDescription + "!", "Fehler");
+                            if (we.Response != null)
+                            {
+                                webresponse = (HttpWebResponse)we.Response;
+                                MessageBox.Show(webresponse.StatusDescription + "!", "Fehler");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Server nicht erreichbar!", "Fehler");
+                            }
                         }
                         finally
                         {
@@ -81,6 +95,8 @@ namespace ProjektarbeitVokabeltrainer
                 MessageBox.Show("Bitte geben sie einen Benutzernamen an!", "Fehler");
         }
 
+
+        //Überprüft die PasswortBoxen auf gleichen Inhalt
         public static bool IsEqualTo(SecureString ss1, SecureString ss2)
         {
             IntPtr bstr1 = IntPtr.Zero;

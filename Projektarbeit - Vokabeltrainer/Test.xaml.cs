@@ -25,7 +25,7 @@ namespace ProjektarbeitVokabeltrainer
     /// </summary>
     public partial class Test : UserControl
     {
-        string uri = "http://localhost:52243/ProjektarbeitVokabeltrainerServer.svc/";
+        private string uri = "http://localhost:52243/ProjektarbeitVokabeltrainerServer.svc/";
         private Benutzer benutzer;
         private int richtung;
         private int richtungNeu;
@@ -45,18 +45,33 @@ namespace ProjektarbeitVokabeltrainer
             this.richtung = richtung;
             this.fach = fach;
             vokabel = LoadVokabel();
-            UpdateStatistikStart();
-            if (anzahl == 0 || vokabel.Count < anzahl)
-                this.anzahl = vokabel.Count;
+            if (vokabel != null)
+            {
+                UpdateStatistikStart();
+                if (anzahl == 0 || vokabel.Count < anzahl)
+                    this.anzahl = vokabel.Count;
+                else
+                    this.anzahl = anzahl;
+                progressBar.Maximum = this.anzahl;
+                lblBeantwortet.Content = zähler;
+                lblRichtig.Content = richtig;
+                lblVerbleibend.Content = (this.anzahl - zähler);
+                Richtung();
+                this.Loaded += Test_Loaded;
+            }
             else
-                this.anzahl = anzahl;
-            progressBar.Maximum = this.anzahl;
-            lblBeantwortet.Content = zähler;
-            lblRichtig.Content = richtig;
-            lblVerbleibend.Content = (this.anzahl - zähler);
-            Richtung();
+            {
+                mainGrid.Children.Clear();
+                mainGrid.Children.Add(new Start());
+            }
+        }
+
+        private void Test_Loaded(object sender, RoutedEventArgs e)
+        {
+            txtAntwort.Focus();
         }
         
+        //Liste aller Vokabel des Testfaches werden geladen
         private List<Vokabel> LoadVokabel()
         {
             HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(uri + "benutzer/" + benutzer.ID + "/vokabel/" + fach + "/");
@@ -65,12 +80,18 @@ namespace ProjektarbeitVokabeltrainer
             try
             {
                 webresponse = (HttpWebResponse)webrequest.GetResponse();
+                HttpStatusCode rc = webresponse.StatusCode;
                 DataContractSerializer serl = new DataContractSerializer(typeof(List<Vokabel>));
                 return (List<Vokabel>)serl.ReadObject(webresponse.GetResponseStream());
             }
-            catch (Exception e)
+            catch (WebException we)
             {
-                throw e;
+                if (we.Response != null)
+                {
+                    webresponse = (HttpWebResponse)we.Response;
+                    MessageBox.Show(webresponse.StatusDescription + "!", "Fehler");
+                }
+                return null;
             }
             finally
             {
@@ -89,10 +110,14 @@ namespace ProjektarbeitVokabeltrainer
             else
             {
                 überprüfenNext.Content = "Nächstes Vokabel";
-                Überprüfen();
+                if (richtungNeu == 1)
+                    ÜberprüfenDeutschEnglisch();
+                else
+                    ÜberprüfenEnglischDeutsch();
             }
         }
 
+        //Richtung wird bestätigt oder neu ausgewürfelt(Bei zufälliger Richtung)
         private void Richtung()
         {
             if (richtung == 0)
@@ -120,6 +145,7 @@ namespace ProjektarbeitVokabeltrainer
             }
         }
 
+        //Test wird auf Ende überprüft und gegebenenfalls beendet, bzw wird das nächste Vokabel geladen
         private void TestEnglischDeutsch()
         {
             if (Ende())
@@ -135,6 +161,7 @@ namespace ProjektarbeitVokabeltrainer
             }
         }
 
+        //Test wird auf Ende überprüft und gegebenenfalls beendet, bzw wird das nächste Vokabel geladen
         private void TestDeutschEnglisch()
         {
             if (Ende())
@@ -150,6 +177,7 @@ namespace ProjektarbeitVokabeltrainer
             }
         }
 
+        //Zufallszahl wird erstellt und auf vorhandensein überprüft
         private int Zufallszahl()
         {
             zufallszahl = random.Next(0, vokabel.Count);
@@ -157,57 +185,62 @@ namespace ProjektarbeitVokabeltrainer
                 zufallszahl = random.Next(0, vokabel.Count);
             return zufallszahl;
         }
-        
-        private void Überprüfen()
+
+        //Antwort wird überprüft
+        private void ÜberprüfenDeutschEnglisch()
         {
-            if (richtungNeu == 1)
+            if (txtAntwort.Text == vokabel[zufallszahl].Englisch || txtAntwort.Text == vokabel[zufallszahl].Englisch2)
             {
-                if (txtAntwort.Text == vokabel[zufallszahl].Englisch || txtAntwort.Text == vokabel[zufallszahl].Englisch2)
-                {
-                    txtAntwort.Background = Brushes.LightGreen;
-                    txtAntwort.Text = "Richtig";
-                    if (vokabel[zufallszahl].Fach < 4)
-                        vokabel[zufallszahl].Fach += 1;
-                    zähler++;
-                    richtig++;
-                }
-                else
-                {
-                    txtAntwort.Background = Brushes.Red;
-                    txtAntwort.Text = "Leider falsch! Richtig wäre:\n" + vokabel[zufallszahl].Englisch;
-                    if (vokabel[zufallszahl].Englisch2 != "")
-                        txtAntwort.Text += " / " + vokabel[zufallszahl].Englisch2;
-                    vokabel[zufallszahl].Fach = 1;
-                    zähler++;
-                }
+                txtAntwort.Background = Brushes.LightGreen;
+                txtAntwort.Text = "Richtig!";
+                if (vokabel[zufallszahl].Fach < 4)
+                    vokabel[zufallszahl].Fach += 1;
+                zähler++;
+                richtig++;
             }
-            if (richtungNeu == 2)
+            else
             {
-                if (txtAntwort.Text == vokabel[zufallszahl].Deutsch || txtAntwort.Text == vokabel[zufallszahl].Deutsch2)
-                {
-                    txtAntwort.Background = Brushes.LightGreen;
-                    txtAntwort.Text = "Richtig";
-                    if (vokabel[zufallszahl].Fach < 4)
-                        vokabel[zufallszahl].Fach += 1;
-                    zähler++;
-                    richtig++;
-                }
-                else
-                {
-                    txtAntwort.Background = Brushes.Red;
-                    txtAntwort.Text = "Leider falsch! Richtig wäre:\n" + vokabel[zufallszahl].Deutsch;
-                    if (vokabel[zufallszahl].Deutsch2 != "")
-                        txtAntwort.Text += " / " + vokabel[zufallszahl].Deutsch2;
-                    vokabel[zufallszahl].Fach = 1;
-                    zähler++;
-                }
+                txtAntwort.Background = Brushes.Red;
+                txtAntwort.Text = "Leider falsch! Richtig wäre:\n" + vokabel[zufallszahl].Englisch;
+                if (vokabel[zufallszahl].Englisch2 != "")
+                    txtAntwort.Text += " / " + vokabel[zufallszahl].Englisch2;
+                vokabel[zufallszahl].Fach = 1;
+                zähler++;
             }
             progressBar.Value++;
             lblBeantwortet.Content = zähler;
             lblRichtig.Content = richtig;
-            lblVerbleibend.Content = (this.anzahl - zähler);
+            lblVerbleibend.Content = (anzahl - zähler);
         }
 
+        //Antwort wird überprüft
+        private void ÜberprüfenEnglischDeutsch()
+        {
+            if (txtAntwort.Text == vokabel[zufallszahl].Deutsch || txtAntwort.Text == vokabel[zufallszahl].Deutsch2)
+            {
+                txtAntwort.Background = Brushes.LightGreen;
+                txtAntwort.Text = "Richtig!";
+                if (vokabel[zufallszahl].Fach < 4)
+                    vokabel[zufallszahl].Fach += 1;
+                zähler++;
+                richtig++;
+            }
+            else
+            {
+                txtAntwort.Background = Brushes.Red;
+                txtAntwort.Text = "Leider falsch! Richtig wäre:\n" + vokabel[zufallszahl].Deutsch;
+                if (vokabel[zufallszahl].Deutsch2 != "")
+                    txtAntwort.Text += " / " + vokabel[zufallszahl].Deutsch2;
+                vokabel[zufallszahl].Fach = 1;
+                zähler++;
+            }
+            progressBar.Value++;
+            lblBeantwortet.Content = zähler;
+            lblRichtig.Content = richtig;
+            lblVerbleibend.Content = (anzahl - zähler);
+        }
+
+        //Ende des Tests wird überprüft
         private bool Ende()
         {
             if (zähler == anzahl)
@@ -217,6 +250,7 @@ namespace ProjektarbeitVokabeltrainer
             return false;
         }
 
+        //Ende des Tests wird angezeigt und die Statistik/Fächer wird aktualisiert
         private void Ende2()
         {
             UpdateStatistikEnde();
@@ -229,6 +263,7 @@ namespace ProjektarbeitVokabeltrainer
             überprüfenNext.Click += ÜberprüfenHauptmenü;
         }
 
+        //Liste der Vokabel wird aktualisiert
         private void UpdateVokabelList()
         {
             HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(uri + "vokabel/");
@@ -241,10 +276,19 @@ namespace ProjektarbeitVokabeltrainer
                 using (Stream requestStream = webrequest.GetRequestStream())
                     serl.WriteObject(requestStream, vokabel);
                 webresponse = (HttpWebResponse)webrequest.GetResponse();
+                HttpStatusCode rc = webresponse.StatusCode;
             }
-            catch (Exception ex)
+            catch (WebException we)
             {
-                throw ex;
+                if (we.Response != null)
+                {
+                    webresponse = (HttpWebResponse)we.Response;
+                    MessageBox.Show(webresponse.StatusDescription + "!", "Fehler");
+                }
+                else
+                {
+                    MessageBox.Show("Server nicht erreichbar!", "Fehler");
+                }
             }
             finally
             {
@@ -253,6 +297,7 @@ namespace ProjektarbeitVokabeltrainer
             }
         }
 
+        //Start des Tests wird dem Server mitgeteilt
         private void UpdateStatistikStart()
         {
             HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(uri + "benutzer/" + benutzer.ID + "/Statistik/");
@@ -268,10 +313,19 @@ namespace ProjektarbeitVokabeltrainer
                 using (Stream requestStream = webrequest.GetRequestStream())
                     serl.WriteObject(requestStream, statistik);
                 webresponse = (HttpWebResponse)webrequest.GetResponse();
+                HttpStatusCode rc = webresponse.StatusCode;
             }
-            catch (Exception ex)
+            catch (WebException we)
             {
-                throw ex;
+                if (we.Response != null)
+                {
+                    webresponse = (HttpWebResponse)we.Response;
+                    MessageBox.Show(webresponse.StatusDescription + "!", "Fehler");
+                }
+                else
+                {
+                    MessageBox.Show("Server nicht erreichbar!", "Fehler");
+                }
             }
             finally
             {
@@ -280,6 +334,7 @@ namespace ProjektarbeitVokabeltrainer
             }
         }
 
+        //Ende des Tests wird dem Server mitgeteilt
         private void UpdateStatistikEnde()
         {
             HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(uri + "benutzer/" + benutzer.ID + "/Statistik/");
@@ -296,10 +351,19 @@ namespace ProjektarbeitVokabeltrainer
                 using (Stream requestStream = webrequest.GetRequestStream())
                     serl.WriteObject(requestStream, statistik);
                 webresponse = (HttpWebResponse)webrequest.GetResponse();
+                HttpStatusCode rc = webresponse.StatusCode;
             }
-            catch (Exception ex)
+            catch (WebException we)
             {
-                throw ex;
+                if (we.Response != null)
+                {
+                    webresponse = (HttpWebResponse)we.Response;
+                    MessageBox.Show(webresponse.StatusDescription + "!", "Fehler");
+                }
+                else
+                {
+                    MessageBox.Show("Server nicht erreichbar!", "Fehler");
+                }
             }
             finally
             {
@@ -308,6 +372,7 @@ namespace ProjektarbeitVokabeltrainer
             }
         }
 
+        //Fächer werden aktualisiert
         private void UpdateFachEnde()
         {
             HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(uri + "benutzer/" + benutzer.ID + "/Fach/");
@@ -323,10 +388,19 @@ namespace ProjektarbeitVokabeltrainer
                 using (Stream requestStream = webrequest.GetRequestStream())
                     serl.WriteObject(requestStream, fach);
                 webresponse = (HttpWebResponse)webrequest.GetResponse();
+                HttpStatusCode rc = webresponse.StatusCode;
             }
-            catch (Exception ex)
+            catch (WebException we)
             {
-                throw ex;
+                if (we.Response != null)
+                {
+                    webresponse = (HttpWebResponse)we.Response;
+                    MessageBox.Show(webresponse.StatusDescription + "!", "Fehler");
+                }
+                else
+                {
+                    MessageBox.Show("Server nicht erreichbar!", "Fehler");
+                }
             }
             finally
             {

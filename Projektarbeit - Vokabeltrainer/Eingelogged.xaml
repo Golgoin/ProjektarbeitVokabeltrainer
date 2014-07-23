@@ -9,9 +9,9 @@
         <Button Click="StatistikClick" Content="Statistik" HorizontalAlignment="Left" Margin="64,82,0,0" VerticalAlignment="Top" Width="120" Height="76"/>
         <DockPanel LastChildFill="True" Name="btnStartPanel" HorizontalAlignment="Left" Margin="189,82,0,0" VerticalAlignment="Top" Width="120" Height="76"/>
         <ComboBox Name="cmbRichtung" HorizontalAlignment="Left" Margin="314,82,0,0" VerticalAlignment="Top" Width="120">
-            <ComboBoxItem Content="Richtung zufällig" IsSelected="True"/>
-            <ComboBoxItem Content="Deutsch/Englisch"/>
-            <ComboBoxItem Content="Englisch/Deutsch"/>
+            <ComboBoxItem Tag="0" Content="Richtung zufällig" IsSelected="True"/>
+            <ComboBoxItem Tag="1" Content="Deutsch/Englisch"/>
+            <ComboBoxItem Tag="2" Content="Englisch/Deutsch"/>
         </ComboBox>
         <ComboBox Name="cmbFach" HorizontalAlignment="Left" Margin="314,109,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbFachSelChanged">
             <ComboBoxItem MinHeight="1" MinWidth="1" Content="Fach 1" IsSelected="True"/>

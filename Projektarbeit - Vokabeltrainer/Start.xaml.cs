@@ -24,11 +24,24 @@ namespace ProjektarbeitVokabeltrainer
     /// </summary>
     public partial class Start : UserControl
     {
-        string uri = "http://localhost:52243/ProjektarbeitVokabeltrainerServer.svc/";
-
+        private string uri = "http://localhost:52243/ProjektarbeitVokabeltrainerServer.svc/";
+        //Liste aller Benutzer wird in die ComboBox geladen
         public Start()
         {
             InitializeComponent();
+            BenutzerNamen.ItemsSource = GetBenutzer();
+            if (BenutzerNamen.Items.Count != 0)
+                BenutzerNamen.SelectedIndex = 0;
+            this.Loaded += Start_Loaded;
+        }
+
+        void Start_Loaded(object sender, RoutedEventArgs e)
+        {
+            pbPasswort.Focus();
+        }
+
+        private List<Benutzer> GetBenutzer()
+        {
             HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(uri + "benutzer/");
             webrequest.Method = "GET";
             HttpWebResponse webresponse = null;
@@ -37,12 +50,20 @@ namespace ProjektarbeitVokabeltrainer
                 webresponse = (HttpWebResponse)webrequest.GetResponse();
                 HttpStatusCode rc = webresponse.StatusCode;
                 DataContractSerializer serl = new DataContractSerializer(typeof(List<Benutzer>));
-                BenutzerNamen.ItemsSource = (List<Benutzer>)serl.ReadObject(webresponse.GetResponseStream());
+                return (List<Benutzer>)serl.ReadObject(webresponse.GetResponseStream());
             }
             catch (WebException we)
             {
-                webresponse = (HttpWebResponse)we.Response;
-                MessageBox.Show(webresponse.StatusDescription + "!", "Fehler");
+                if (we.Response != null)
+                {
+                    webresponse = (HttpWebResponse)we.Response;
+                    MessageBox.Show(webresponse.StatusDescription + "!", "Fehler");
+                }
+                else
+                {
+                    MessageBox.Show("Server nicht erreichbar!", "Fehler");
+                }
+                return new List<Benutzer>();
             }
             finally
             {
@@ -51,6 +72,7 @@ namespace ProjektarbeitVokabeltrainer
             }
         }
 
+        //Benutzer wird eingelogged
         private void EinloggenClick(object sender, RoutedEventArgs e)
         {
             if (BenutzerNamen.SelectedItem is Benutzer)
@@ -74,8 +96,15 @@ namespace ProjektarbeitVokabeltrainer
                 }
                 catch (WebException we)
                 {
-                    webresponse = (HttpWebResponse)we.Response;
-                    MessageBox.Show(webresponse.StatusDescription + "!", "Fehler");
+                    if (we.Response != null)
+                    {
+                        webresponse = (HttpWebResponse)we.Response;
+                        MessageBox.Show(webresponse.StatusDescription + "!", "Fehler");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Server nicht erreichbar!", "Fehler");
+                    }
                 }
                 finally
                 {
@@ -95,6 +124,11 @@ namespace ProjektarbeitVokabeltrainer
         {
             mainGrid.Children.Clear();
             mainGrid.Children.Add(new Registrieren());
+        }
+
+        private void BenutzerNamen_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            pbPasswort.Focus();
         }
     }
 }

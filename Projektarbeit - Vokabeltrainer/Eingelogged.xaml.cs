@@ -23,7 +23,7 @@ namespace ProjektarbeitVokabeltrainer
     /// </summary>
     public partial class Eingelogged : UserControl
     {
-        string uri = "http://localhost:52243/ProjektarbeitVokabeltrainerServer.svc/";
+        private string uri = "http://localhost:52243/ProjektarbeitVokabeltrainerServer.svc/";
         private Benutzer benutzer;
         private List<Vokabel> vokabel;
 
@@ -32,8 +32,14 @@ namespace ProjektarbeitVokabeltrainer
             this.benutzer = GetBenutzer(benutzer);
             vokabel = GetVokabel();
             InitializeComponent();
+            if (this.benutzer == null || this.vokabel == null)
+            {
+                mainGrid.Children.Clear();
+                mainGrid.Children.Add(new Start());
+            }
         }
 
+        //Liefert den eingeloggten Benutzer
         private Benutzer GetBenutzer(Benutzer benutzer)
         {
             HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(uri + "benutzer/" + benutzer.ID + "/");
@@ -42,12 +48,18 @@ namespace ProjektarbeitVokabeltrainer
             try
             {
                 webresponse = (HttpWebResponse)webrequest.GetResponse();
+                HttpStatusCode rc = webresponse.StatusCode;
                 DataContractSerializer serl = new DataContractSerializer(typeof(Benutzer));
                 return (Benutzer)serl.ReadObject(webresponse.GetResponseStream());
             }
-            catch (Exception e)
+            catch (WebException we)
             {
-                throw e;
+                if (we.Response != null)
+                {
+                    webresponse = (HttpWebResponse)we.Response;
+                    MessageBox.Show(webresponse.StatusDescription + "!", "Fehler");
+                }
+                return null;
             }
             finally
             {
@@ -56,6 +68,7 @@ namespace ProjektarbeitVokabeltrainer
             }
         }
 
+        //Liefert die Vokabel des Benutzers
         private List<Vokabel> GetVokabel()
         {
             HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(uri + "benutzer/" + benutzer.ID + "/vokabel/");
@@ -64,12 +77,18 @@ namespace ProjektarbeitVokabeltrainer
             try
             {
                 webresponse = (HttpWebResponse)webrequest.GetResponse();
+                HttpStatusCode rc = webresponse.StatusCode;
                 DataContractSerializer serl = new DataContractSerializer(typeof(List<Vokabel>));
                 return (List<Vokabel>)serl.ReadObject(webresponse.GetResponseStream());
             }
-            catch (Exception e)
+            catch (WebException we)
             {
-                throw e;
+                if (we.Response != null)
+                {
+                    webresponse = (HttpWebResponse)we.Response;
+                    MessageBox.Show(webresponse.StatusDescription + "!", "Fehler");
+                }
+                return null;
             }
             finally
             {
@@ -102,47 +121,52 @@ namespace ProjektarbeitVokabeltrainer
             mainGrid.Children.Add(new Statistik(benutzer));
         }
 
+        //Überprüft bei dem ausgewählten Fach ob es für einen Test verfügbar ist
         private void cmbFachSelChanged(object sender, SelectionChangedEventArgs e)
         {
-            btnStartPanel.Children.Clear();
-            ComboBoxItem cmbitem = cmbFach.SelectedItem as ComboBoxItem;
-            int fach = (int)cmbitem.MinHeight;
-            int tage = (int)cmbitem.MinWidth;
-            DateTime now = DateTime.Now;
-            Button btnStart = new Button();
-            btnStart.Content = "Test starten";
-            List<DateTime> fachZeiten = new List<DateTime>();
-            fachZeiten.Add(new DateTime());
-            fachZeiten.Add(DateTime.Parse(benutzer.Fach1.Zeit));
-            fachZeiten.Add(DateTime.Parse(benutzer.Fach2.Zeit));
-            fachZeiten.Add(DateTime.Parse(benutzer.Fach3.Zeit));
-            fachZeiten.Add(DateTime.Parse(benutzer.Fach4.Zeit));
+            if (benutzer.Statistik != null)
+            {
+                btnStartPanel.Children.Clear();
+                ComboBoxItem cmbitem = cmbFach.SelectedItem as ComboBoxItem;
+                int fach = (int)cmbitem.MinHeight; //MinHeight = Fach der Lernkartei
+                int tage = (int)cmbitem.MinWidth; //MinWidth = Intervall bis zum nächsten Test des Faches
+                DateTime now = DateTime.Now;
+                Button btnStart = new Button();
+                btnStart.Content = "Test starten";
+                btnStart.IsDefault = true;
+                List<DateTime> fachZeiten = new List<DateTime>();
+                fachZeiten.Add(new DateTime());
+                fachZeiten.Add(DateTime.Parse(benutzer.Fach1.Zeit));
+                fachZeiten.Add(DateTime.Parse(benutzer.Fach2.Zeit));
+                fachZeiten.Add(DateTime.Parse(benutzer.Fach3.Zeit));
+                fachZeiten.Add(DateTime.Parse(benutzer.Fach4.Zeit));
 
-            if (vokabel.FindAll(vok => vok.Fach == fach).Count == 0)
-            {
-                btnStart.Background = Brushes.Red;
-                btnStart.Click += NoVok;
+                if (vokabel.FindAll(vok => vok.Fach == fach).Count == 0) //Überprüfung ob Vokabel vorhanden
+                {
+                    btnStart.Background = Brushes.Red;
+                    btnStart.Click += NoVok;
+                }
+                else if (now.CompareTo(fachZeiten[fach].AddDays(tage)) < 0) //Überprüfung ob Intervall erreicht
+                {
+                    btnStart.Background = Brushes.Red;
+                    btnStart.Click += NotAvailable;
+                    btnStart.Tag = fachZeiten[fach];
+                    btnStart.MinWidth = tage;
+                }
+                else //Test verfügbar
+                {
+                    btnStart.Background = Brushes.LightGreen;
+                    btnStart.Click += StartenClick;
+                }
+                btnStartPanel.Children.Add(btnStart);
             }
-            else if (now.CompareTo(fachZeiten[fach].AddDays(tage)) < 0)
-            {
-                btnStart.Background = Brushes.Red;
-                btnStart.Click += NotAvailable;
-                btnStart.Tag = fachZeiten[fach];
-                btnStart.MinHeight = tage;
-            }
-            else
-            {
-                btnStart.Background = Brushes.LightGreen;
-                btnStart.Click += StartenClick;
-            }
-            btnStartPanel.Children.Add(btnStart);
         }
 
         private void NotAvailable(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
             DateTime btnTime = (DateTime)btn.Tag;
-            MessageBox.Show("Test nicht möglich!\nWieder möglich am: " + btnTime.AddDays(btn.MinHeight), "Fehler");
+            MessageBox.Show("Test nicht möglich!\nWieder möglich am: " + btnTime.AddDays(btn.MinWidth), "Fehler");
         }
 
         private void NoVok(object sender, RoutedEventArgs e)
